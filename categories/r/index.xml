@@ -13,10 +13,10 @@
     
     <item>
       <title>Learnings from Kaggle Forecasting Competitions: Part 1</title>
-      <link>/post/test/</link>
+      <link>/post/kaggle-part-1/</link>
       <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/test/</guid>
+      <guid>/post/kaggle-part-1/</guid>
       <description>This post is the first part of a series of posts, which attempt to provide an overview of the forecasting competitions held on Kaggle. In contrast to the academically organized M-competitions, which focus on learning about the relative performance of forecast methods under different circumstances, the Kaggle competitions are organized with the sole goal of solving forecasting problems faced by companies. The effect of this focus is that while high ranking contestants often share their approaches, the lessons learned are fragmented and it requires significant work for interested academics or practitioners to put the pieces together.</description>
     </item>
     
