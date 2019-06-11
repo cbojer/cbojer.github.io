@@ -6,20 +6,18 @@
     <description>Recent content in R Markdown on Casper Bojer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 04 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 09 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Hello R Markdown</title>
+      <title>Learnings from Kaggle Forecasting Competitions: Part 1</title>
       <link>/post/test/</link>
-      <pubDate>Tue, 04 Jun 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/test/</guid>
-      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+      <description>This post is the first part of a series of posts, which attempt to provide an overview of the forecasting competitions held on Kaggle. In contrast to the academically organized M-competitions, which focus on learning about the relative performance of forecast methods under different circumstances, the Kaggle competitions are organized with the sole goal of solving forecasting problems faced by companies. The effect of this focus is that while high ranking contestants often share their approaches, the lessons learned are fragmented and it requires significant work for interested academics or practitioners to put the pieces together.</description>
     </item>
     
   </channel>

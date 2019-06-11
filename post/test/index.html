@@ -14,7 +14,7 @@
   <title>
     
     
-     Hello R Markdown 
+     Learnings from Kaggle Forecasting Competitions: Part 1 
     
   </title>
   <link rel="canonical" href="/post/test/">
@@ -30,7 +30,7 @@
   <h1><a href="/">Casper Bojer</a></h1>
   <ul>
     
-    <li><a href="https://nanx.me">Home</a></li>
+    <li><a href="https://cbojer.github.io">Home</a></li>
     
     <li><a href="https://github.com/cbojer">GitHub</a></li>
     
@@ -45,54 +45,233 @@
 
 
 <section id=content>
-  <h1> Hello R Markdown </h1>
+  <h1> Learnings from Kaggle Forecasting Competitions: Part 1 </h1>
 
   <div id=sub-header>
-    Casper Bojer · 2019/06/04 · 1 minute read
+    Casper Bojer · 2019/06/09 · 6 minute read
   </div>
 
   <div class="entry-content">
     
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 
 
-<div id="r-markdown" class="section level1">
-<h1>R Markdown</h1>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>You can embed an R code chunk like this:</p>
-<pre class="r"><code>summary(cars)
-##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00
-fit &lt;- lm(dist ~ speed, data = cars)
-fit
-## 
-## Call:
-## lm(formula = dist ~ speed, data = cars)
-## 
-## Coefficients:
-## (Intercept)        speed  
-##     -17.579        3.932</code></pre>
+<p><em>This post is the first part of a series of posts, which attempt to provide an overview of the forecasting competitions held on Kaggle. In contrast to the academically organized M-competitions, which focus on learning about the relative performance of forecast methods under different circumstances, the Kaggle competitions are organized with the sole goal of solving forecasting problems faced by companies. The effect of this focus is that while high ranking contestants often share their approaches, the lessons learned are fragmented and it requires significant work for interested academics or practitioners to put the pieces together. Motivated by this, the main purpose of the series is to distill the key findings of the competitions in terms of the approaches that have been succesfully applied to solving forecasting problems.</em></p>
+<p>This first post will provide an overview of the forecasting competitions that have been held on Kaggle throughout the years, while the remaining posts will dive into the competitions one at a time to provide details on the approaches that were successfully used. A final post will attempt to summarize and generalize the findings from the competitions with the hope of adding to the knowledge gained from the academic forecasting competitions.</p>
+<div id="the-competitions" class="section level1">
+<h1>The Competitions</h1>
+<p>A variety of forecasting competitions have been held on the Kaggle platform since its inception in 2010. The focus in these posts will be on the forecasting competitions held in the last five years, as a lot has happened in the field of forecasting and machine learning since 2010. This leaves the following forecasting competitions to examine:</p>
+<ul>
+<li>Walmart Recruiting Store Sales Forecasting</li>
+<li>Rossmann Store Sales Forecasting</li>
+<li>Grupo Bimbo Store Sales Forecasting</li>
+<li>Wikipedia Web Traffic Time Series Forecasting</li>
+<li>Corporación Favorita Store Sales Forecasting</li>
+<li>Recruit Restaurant Visitor Forecasting</li>
+</ul>
+<p>It is clear from the list of competitions, that a majority of the competitions have focused on business forecasting with 4 of the 6 competitions focusing on forecasting store sales within the retail industry. The one competition that stands out from the rest is the Wikipedia Web Traffic competition, as the quantity to forecast is digital rather than physical. As such, it will be interesting whether the findings of this competition are similar to the findings from the competitions in the business domain. Despite similarities in terms of the domain for the retail forecasting competitions, there are still significant differences in the forecasting tasks. The next sections will provide a brief introduction to the different competitions in terms of the forecasting task and the evaluation setup.</p>
 </div>
-<div id="including-plots" class="section level1">
-<h1>Including Plots</h1>
-<p>You can also embed plots. See Figure <a href="#fig:pie">1</a> for example:</p>
-<pre class="r"><code>par(mar = c(0, 1, 0, 1))
-pie(
-  c(280, 60, 20),
-  c(&#39;Sky&#39;, &#39;Sunny side of pyramid&#39;, &#39;Shady side of pyramid&#39;),
-  col = c(&#39;#0292D8&#39;, &#39;#F7EA39&#39;, &#39;#C4B632&#39;),
-  init.angle = -50, border = NA
-)</code></pre>
-<div class="figure"><span id="fig:pie"></span>
-<img src="/post/test_files/figure-html/pie-1.png" alt="A fancy pie chart." width="672" />
-<p class="caption">
-Figure 1: A fancy pie chart.
-</p>
+<div id="walmart-recruiting-store-sales-forecasting" class="section level1">
+<h1>Walmart Recruiting Store Sales Forecasting</h1>
+<p>The Walmart competition comprised the tasks of predicting weekly department sales (in $) by store for 45 Walmart stores with a focus on correct prediction of weeks with holiday markdowns. Contestants were provided 33 months of data (143 weekly observations) per store and were required to forecast sales for the upcoming 39 weeks. The forecasts were evaluated using the weighted mean absolute error (WMAE), which assigns a weight of five to the special holiday markdown weeks and one otherwise:</p>
+<p><span class="math display">\[ WMAE = \frac{1}{\sum{w_i}}\sum_{i = 1}^{n}w_i|y_i-\hat{y_i}| \]</span> where n is the number of observations, <span class="math inline">\(w_i\)</span> is the weight of observation i and <span class="math inline">\(\hat{y_i}\)</span> is the forecast. As such the forecasts were evaluated using a forecast accuracy measure averaged over forecast horizons of 1 to 39 weeks.</p>
 </div>
+<div id="rossmann-store-sales-forecasting" class="section level1">
+<h1>Rossmann Store Sales Forecasting</h1>
+<p>The Rossmann competition tasked contestants with forecasting daily sales (in $) by store for 1115 Rossmann stores. Contestants were provided 31 months of data (942 daily observations) and were required to forecast sales for the upcoming 48 days. The forecasts were evaluated using the root mean square percentage error (RMSPE):</p>
+<p><span class="math display">\[ RMSPE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(\frac{y_i-\hat{y_i}}{y_i})^2} \]</span> The forecast accuracy measure was thus averaged over horizons of 1 to 48 days.</p>
+</div>
+<div id="grupo-bimbo-store-sales-forecasting" class="section level1">
+<h1>Grupo Bimbo Store Sales Forecasting</h1>
+<p>The Grupo Bimbo competition invited the contestants to forecast weekly unit sales by store for a variety of bakery products. Contestants were given 7 weeks of data and asked to predict the unit sales for the upcoming two weeks for 745.164 stores and 1522 products. As such the dataset is very large in terms of the number of time series to predict, but very short in terms of the history available. The forecasts were evaluated using the root mean square logarithmic error (RMSLE):</p>
+<p><span class="math display">\[ RMSLE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(log(\hat{y_i}+1)-log(y_i+1))^2} \]</span> The forecast accuracy was averaged over horizons of of 1 to 2 weeks.</p>
+</div>
+<div id="wikipedia-web-traffic-time-series-forecasting" class="section level1">
+<h1>Wikipedia Web Traffic Time Series Forecasting</h1>
+<p>The Wikipedia Web Traffic competition tasked contestants to forecast daily visits by page and traffic type (e.g. mobile, desktop, etc.) for around 145.000 Wikipedia pages. The competition was conducted in a slightly different manner, as it was split in a training and an evaluation phase. For the training phase, contestants were provided two years of data (730 daily observations) and asked to predict daily page visits for the next 3 months (90 daily observations). The training phase was only used to allow participants to test out models prior to the actual evaluation. The evaluation phase extended the training data available to include more recent data for a total of 32 months of data (970 daily observations) and predictions were required for a period of one month starting 12 days after the last training data observation. The forecasts were evaluated using the symmetric mean absolute percentage error (SMAPE):</p>
+<p><span class="math display">\[ SMAPE = \frac{100\%}{n}\sum_{i = n}^{n}\frac{|\hat{y_i}-y_i|}{(|y_i| + | \hat{y_i}|)/2} \]</span> The forecast accuracy was thus averaged over horizons of 12 to 42 days.</p>
+</div>
+<div id="corporacion-favorita-store-sales-forecasting" class="section level1">
+<h1>Corporación Favorita Store Sales Forecasting</h1>
+<p>The Corporación Favorita competition tasked contestants with forecasting daily unit sales by store and product for 3901 products and 54 stores. Contestants were given almost 5 years of data (1684 daily observations) and were asked to predict the upcoming 16 days. The forecasts were evaluated using the normalized weighted root mean squared logarithmic error (NWRMSLE):</p>
+<p><span class="math display">\[ NWRMSLE = \sqrt{\frac{\sum_{i=1}^{n}w_i(ln(\hat{y_i}+1)-ln(y_i+1))^2}{\sum_{i=1}^{n}w_i}} \]</span> where <span class="math inline">\(w_i\)</span> are weights with a weight of 1.25 assigned for perishable products and 1.0 for the non-perishable products. The forecast accuract measures was thus averaged over 1 to 16 days.</p>
+</div>
+<div id="recruit-restaurant-visitor-forecasting" class="section level1">
+<h1>Recruit Restaurant Visitor Forecasting</h1>
+<p>The Recruit Restaurant competition challenged contestants to forecast daily restaurant visits for 821 restaurants. Contestants were provided approximately 16 months of data (478 daily observations) and asked to predict visits for a period of 39 days. Thus, the forecasts have a horizon of 1 to 39 days. The forecasts were evaluated using the root mean square logarithmic error (RMSLE):</p>
+<p><span class="math display">\[ RMSLE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(log(\hat{y_i}+1)-log(y_i+1))^2} \]</span></p>
+</div>
+<div id="summary-and-looking-forward" class="section level1">
+<h1>Summary and looking forward</h1>
+<p>Based on the above review, it is clear that the competition datasets vary considerably in terms of both length and the number of related time series to be forecast. There are, however, also certain similarities, such as all of the series being at either the daily or weekly level. The table below provides a summary of the competitions characteristics.</p>
+<p>In the next post, I will dive into the Walmart competition, focusing on the approaches used by the top 10 contestants. The post will look into forecast method, feature engineering and cross-validation strategies and try to provide a summary of what worked well in the competition.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Competition
+</th>
+<th style="text-align:left;">
+Time Unit
+</th>
+<th style="text-align:left;">
+Unit
+</th>
+<th style="text-align:right;">
+# Obs.
+</th>
+<th style="text-align:left;">
+# Timeseries
+</th>
+<th style="text-align:left;">
+Horizon
+</th>
+<th style="text-align:left;">
+Acc. Measure
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Walmart
+</td>
+<td style="text-align:left;">
+Weekly
+</td>
+<td style="text-align:left;">
+$ Sales by Department
+</td>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:left;">
+45
+</td>
+<td style="text-align:left;">
+39
+</td>
+<td style="text-align:left;">
+WMAE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rossmann
+</td>
+<td style="text-align:left;">
+Daily
+</td>
+<td style="text-align:left;">
+$ Sales by Store
+</td>
+<td style="text-align:right;">
+942
+</td>
+<td style="text-align:left;">
+1115
+</td>
+<td style="text-align:left;">
+1-48
+</td>
+<td style="text-align:left;">
+RMSPE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Grupo Bimbo
+</td>
+<td style="text-align:left;">
+Weekly
+</td>
+<td style="text-align:left;">
+Unit Sales by Product &amp; Store
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+~6.2M
+</td>
+<td style="text-align:left;">
+1-2
+</td>
+<td style="text-align:left;">
+RMSLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wikipedia
+</td>
+<td style="text-align:left;">
+Daily
+</td>
+<td style="text-align:left;">
+Views by Page and Traffic Type
+</td>
+<td style="text-align:right;">
+970
+</td>
+<td style="text-align:left;">
+~145k
+</td>
+<td style="text-align:left;">
+12-42
+</td>
+<td style="text-align:left;">
+SMAPE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Corporación Favorita
+</td>
+<td style="text-align:left;">
+Daily
+</td>
+<td style="text-align:left;">
+Unit Sales by Product &amp; Store
+</td>
+<td style="text-align:right;">
+1684
+</td>
+<td style="text-align:left;">
+~210k
+</td>
+<td style="text-align:left;">
+1-16
+</td>
+<td style="text-align:left;">
+NWRMSLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Recruit Restaurant
+</td>
+<td style="text-align:left;">
+Daily
+</td>
+<td style="text-align:left;">
+Visits by Restaurant
+</td>
+<td style="text-align:right;">
+478
+</td>
+<td style="text-align:left;">
+821
+</td>
+<td style="text-align:left;">
+1-39
+</td>
+<td style="text-align:left;">
+RMSLE
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 
   </div>
@@ -125,6 +304,9 @@ Figure 1: A fancy pie chart.
 
   
   
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 
 
 </body>
