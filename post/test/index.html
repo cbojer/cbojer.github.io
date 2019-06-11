@@ -70,7 +70,7 @@
 <li>Corporación Favorita Store Sales Forecasting</li>
 <li>Recruit Restaurant Visitor Forecasting</li>
 </ul>
-<p>It is clear from the list of competitions, that a majority of the competitions have focused on business forecasting with 4 of the 6 competitions focusing on forecasting store sales within the retail industry. The one competition that stands out from the rest is the Wikipedia Web Traffic competition, as the quantity to forecast is digital rather than physical. As such, it will be interesting whether the findings of this competition are similar to the findings from the competitions in the business domain. Despite similarities in terms of the domain for the retail forecasting competitions, there are still significant differences in the forecasting tasks. The next sections will provide a brief introduction to the different competitions in terms of the forecasting task and the evaluation setup.</p>
+<p>It is clear from the list of competitions, that a majority of the competitions have focused on business forecasting with 4 of the 6 competitions focusing on forecasting store sales within the retail industry. The one competition that stands out from the rest is the Wikipedia Web Traffic competition, as the quantity to forecast is digital rather than physical. As such, it will be interesting whether the findings of this competition are similar to the findings from the competitions in the business domain. Despite similarities in terms of the domain for the retail forecasting competitions, there are still significant differences in the forecasting tasks. The next sections will provide a brief introduction to the different competitions in terms of the forecasting task and the evaluation setup. If you are short on time and want a quick overview, you can skip to the table at the end of the post.</p>
 </div>
 <div id="walmart-recruiting-store-sales-forecasting" class="section level1">
 <h1>Walmart Recruiting Store Sales Forecasting</h1>
@@ -84,7 +84,7 @@
 </div>
 <div id="grupo-bimbo-store-sales-forecasting" class="section level1">
 <h1>Grupo Bimbo Store Sales Forecasting</h1>
-<p>Grupo Bimbo is a large Mexican bakery product manufacturer with stores in multiple countries. The Grupo Bimbo competition invited the contestants to forecast weekly unit sales by store (clients) for a variety of bakery products. Contestants were given 7 weeks of data and asked to predict the unit sales for the upcoming two weeks for 745.164 stores and 1522 products. As such the dataset is very large in terms of the number of time series to predict, but very short in terms of the history available. The forecasts were evaluated using the root mean square logarithmic error (RMSLE):</p>
+<p>Grupo Bimbo is a large Mexican bakery product manufacturer with facilities in multiple countries. The Grupo Bimbo competition invited the contestants to forecast weekly unit sales by store (their clients) for a variety of bakery products. Contestants were given 7 weeks of data and asked to predict the unit sales for the upcoming two weeks for 745.164 stores and 1522 products. As such the dataset is very large in terms of the number of time series to predict, but very short in terms of the history available. The forecasts were evaluated using the root mean square logarithmic error (RMSLE):</p>
 <p><span class="math display">\[ RMSLE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(log(\hat{y_i}+1)-log(y_i+1))^2} \]</span> The forecast accuracy was averaged over horizons of of 1 to 2 weeks.</p>
 </div>
 <div id="wikipedia-web-traffic-time-series-forecasting" class="section level1">
@@ -104,7 +104,7 @@
 </div>
 <div id="summary-and-looking-forward" class="section level1">
 <h1>Summary and looking forward</h1>
-<p>Based on the above review, it is clear that the competition datasets vary considerably in terms of both the length and the number of related time series to forecast. There are, however, also certain similarities, such as all of the series being at either the daily or weekly level. The table below provides a summary of the competitions characteristics.</p>
+<p>Based on the above review, it is clear that the competition datasets vary considerably in terms of both the length and the number of related time series to forecast. There are, however, also certain similarities, such as all of the series being at either the daily or weekly level. The table below provides a summary of the competition’s characteristics.</p>
 <p>In the next post, I will dive into the Walmart competition, focusing on the approaches used by the top 10 contestants. The post will look into the forecast methods, feature engineering and cross-validation strategies used and attempt to provide a summary of what worked well in the competition.</p>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -150,7 +150,7 @@ $ Sales by Department
 45
 </td>
 <td style="text-align:left;">
-39
+1-39
 </td>
 <td style="text-align:left;">
 WMAE
