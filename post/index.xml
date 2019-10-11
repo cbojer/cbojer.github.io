@@ -6,13 +6,22 @@
     <description>Recent content in Posts on Casper Bojer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 09 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 11 Oct 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Learnings from Kaggle Forecasting Competitions: Part 1</title>
+      <title>Learnings from Kaggle Forecasting Competitions: The Walmart Competition</title>
+      <link>/post/kaggle-part-2/</link>
+      <pubDate>Fri, 11 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/kaggle-part-2/</guid>
+      <description>This post is the second part of a series of posts, which attempt to provide an overview of the forecasting competitions held on Kaggle. In contrast to the academically organized M-competitions, which focus on learning about the relative performance of forecast methods under different circumstances, the Kaggle competitions are organized with the sole goal of solving forecasting problems faced by companies. The effect of this focus is that while high ranking contestants often share their approaches, the lessons learned are fragmented and it requires significant work for interested academics or practitioners to put the pieces together.</description>
+    </item>
+    
+    <item>
+      <title>Learnings from Kaggle Forecasting Competitions: Introduction</title>
       <link>/post/kaggle-part-1/</link>
       <pubDate>Sun, 09 Jun 2019 00:00:00 +0000</pubDate>
       

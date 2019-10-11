@@ -14,7 +14,7 @@
   <title>
     
     
-     Learnings from Kaggle Forecasting Competitions: Part 1 
+     Learnings from Kaggle Forecasting Competitions: Introduction 
     
   </title>
   <link rel="canonical" href="/post/kaggle-part-1/">
@@ -45,7 +45,7 @@
 
 
 <section id=content>
-  <h1> Learnings from Kaggle Forecasting Competitions: Part 1 </h1>
+  <h1> Learnings from Kaggle Forecasting Competitions: Introduction </h1>
 
   <div id=sub-header>
     Casper Bojer · 2019/06/09 · 7 minute read
@@ -75,36 +75,39 @@
 <div id="walmart-recruiting-store-sales-forecasting" class="section level1">
 <h1>Walmart Recruiting Store Sales Forecasting</h1>
 <p>Walmart is a well-known retail chain, primarly based in America, that operates a variety of stores. The Walmart competition comprised the tasks of predicting weekly department sales (in $) by store for 45 Walmart stores with a focus on correct prediction of weeks with holiday markdowns. Contestants were provided 33 months of data (143 weekly observations) per store and were required to forecast sales for the upcoming 39 weeks. The forecasts were evaluated using the weighted mean absolute error (WMAE), which assigns a weight of five to the special holiday markdown weeks and one otherwise:</p>
-<p><span class="math display">\[ WMAE = \frac{1}{\sum{w_i}}\sum_{i = 1}^{n}w_i|y_i-\hat{y_i}| \]</span> where n is the number of observations, <span class="math inline">\(w_i\)</span> is the weight of observation i and <span class="math inline">\(\hat{y_i}\)</span> is the forecast. As such the forecasts were evaluated using a forecast accuracy measure averaged over forecast horizons of 1 to 39 weeks.</p>
+<p><span class="math display">\[ WMAE = \frac{1}{\sum{w_i}}\sum_{i = 1}^{n}w_i|y_i-\hat{y_i}| \]</span>
+where n is the number of observations, <span class="math inline">\(w_i\)</span> is the weight of observation i and <span class="math inline">\(\hat{y_i}\)</span> is the forecast. As such the forecasts were evaluated using a forecast accuracy measure averaged over forecast horizons of 1 to 39 weeks.</p>
 </div>
 <div id="rossmann-store-sales-forecasting" class="section level1">
 <h1>Rossmann Store Sales Forecasting</h1>
 <p>Rossmann is a large drug store chain from Germany with stores in multiple European countries. The Rossmann competition tasked contestants with forecasting daily sales (in $) by store for 1115 Rossmann stores. Contestants were provided 31 months of data (942 daily observations) and were required to forecast sales for the upcoming 48 days. The forecasts were evaluated using the root mean square percentage error (RMSPE):</p>
-<p><span class="math display">\[ RMSPE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(\frac{y_i-\hat{y_i}}{y_i})^2} \]</span> The forecast accuracy measure was thus averaged over horizons of 1 to 48 days.</p>
+<p><span class="math display">\[ RMSPE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(\frac{y_i-\hat{y_i}}{y_i})^2} \]</span>
+The forecast accuracy measure was thus averaged over horizons of 1 to 48 days.</p>
 </div>
 <div id="grupo-bimbo-store-sales-forecasting" class="section level1">
 <h1>Grupo Bimbo Store Sales Forecasting</h1>
 <p>Grupo Bimbo is a large Mexican bakery product manufacturer with facilities in multiple countries. The Grupo Bimbo competition invited the contestants to forecast weekly unit sales by store (their clients) for a variety of bakery products. Contestants were given 7 weeks of data and asked to predict the unit sales for the upcoming two weeks for 745.164 stores and 1522 products. As such the dataset is very large in terms of the number of time series to predict, but very short in terms of the history available. The forecasts were evaluated using the root mean square logarithmic error (RMSLE):</p>
-<p><span class="math display">\[ RMSLE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(log(\hat{y_i}+1)-log(y_i+1))^2} \]</span> The forecast accuracy was averaged over horizons of of 1 to 2 weeks.</p>
+<p><span class="math display">\[ RMSLE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(log(\hat{y_i}+1)-log(y_i+1))^2} \]</span>
+The forecast accuracy was averaged over horizons of of 1 to 2 weeks.</p>
 </div>
 <div id="wikipedia-web-traffic-time-series-forecasting" class="section level1">
 <h1>Wikipedia Web Traffic Time Series Forecasting</h1>
 <p>The Wikipedia Web Traffic competition tasked contestants to forecast daily visits by page and traffic type (e.g. mobile, desktop, etc.) for around 145.000 Wikipedia pages. The competition was conducted in a slightly different manner, as it was split in a training and an evaluation phase. For the training phase, contestants were provided two years of data (730 daily observations) and asked to predict daily page visits for the next 3 months (90 daily observations). The training phase was only used to allow participants to test out models prior to the actual evaluation. The evaluation phase extended the training data available to include more recent data for a total of 32 months of data (970 daily observations) and predictions were required for a period of one month starting 12 days after the last training data observation. The forecasts were evaluated using the symmetric mean absolute percentage error (SMAPE):</p>
-<p><span class="math display">\[ SMAPE = \frac{100\%}{n}\sum_{i = n}^{n}\frac{|\hat{y_i}-y_i|}{(|y_i| + | \hat{y_i}|)/2} \]</span> The forecast accuracy was thus averaged over horizons of 12 to 42 days.</p>
+<p><span class="math display">\[ SMAPE = \frac{100\%}{n}\sum_{i = n}^{n}\frac{|\hat{y_i}-y_i|}{(|y_i| + | \hat{y_i}|)/2} \]</span>
+The forecast accuracy was thus averaged over horizons of 12 to 42 days.</p>
 </div>
-<div id="corporacion-favorita-store-sales-forecasting" class="section level1">
+<div id="corporación-favorita-store-sales-forecasting" class="section level1">
 <h1>Corporación Favorita Store Sales Forecasting</h1>
 <p>Corporación Favorita is a large Ecuadorian grocery chain that operates hundreds of supermarkets. The Corporación Favorita competition tasked contestants with forecasting daily unit sales by store and product for 3901 products and 54 stores. Contestants were given almost 5 years of data (1684 daily observations) and were asked to predict the upcoming 16 days. The forecasts were evaluated using the normalized weighted root mean squared logarithmic error (NWRMSLE):</p>
-<p><span class="math display">\[ NWRMSLE = \sqrt{\frac{\sum_{i=1}^{n}w_i(ln(\hat{y_i}+1)-ln(y_i+1))^2}{\sum_{i=1}^{n}w_i}} \]</span> where <span class="math inline">\(w_i\)</span> are weights with a weight of 1.25 assigned for perishable products and 1.0 for the non-perishable products. The forecast accuract measures was thus averaged over 1 to 16 days.</p>
+<p><span class="math display">\[ NWRMSLE = \sqrt{\frac{\sum_{i=1}^{n}w_i(ln(\hat{y_i}+1)-ln(y_i+1))^2}{\sum_{i=1}^{n}w_i}} \]</span>
+where <span class="math inline">\(w_i\)</span> are weights with a weight of 1.25 assigned for perishable products and 1.0 for the non-perishable products. The forecast accuract measures was thus averaged over 1 to 16 days.</p>
 </div>
 <div id="recruit-restaurant-visitor-forecasting" class="section level1">
 <h1>Recruit Restaurant Visitor Forecasting</h1>
 <p>Recruit Holdings own and offer reservation and point-of-sales software within the restaurant industry. The Recruit Restaurant competition challenged contestants to forecast daily restaurant visits for 821 restaurants. Contestants were provided approximately 16 months of data (478 daily observations) and asked to predict visits for a period of 39 days. Thus, the forecasts have a horizon of 1 to 39 days. The forecasts were evaluated using the root mean square logarithmic error (RMSLE):</p>
 <p><span class="math display">\[ RMSLE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(log(\hat{y_i}+1)-log(y_i+1))^2} \]</span></p>
-</div>
-<div id="summary-and-looking-forward" class="section level1">
-<h1>Summary and looking forward</h1>
-<p>Based on the above review, it is clear that the competition datasets vary considerably in terms of both the length and the number of related time series to forecast. There are, however, also certain similarities, such as all of the series being at either the daily or weekly level. The table below provides a summary of the competition’s characteristics.</p>
+<p>#Summary and looking forward
+Based on the above review, it is clear that the competition datasets vary considerably in terms of both the length and the number of related time series to forecast. There are, however, also certain similarities, such as all of the series being at either the daily or weekly level. The table below provides a summary of the competition’s characteristics.</p>
 <p>In the next post, I will dive into the Walmart competition, focusing on the approaches used by the top 10 contestants. The post will look into the forecast methods, feature engineering and cross-validation strategies used and attempt to provide a summary of what worked well in the competition.</p>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -279,6 +282,8 @@ RMSLE
 
   <div id=links>
     
+    
+      <a class="basic-alignment left" href="/post/kaggle-part-2/">Learnings from Kaggle Forecasting Competitions: The Walmart Competition &raquo;</a>
     
   </div>
 </section>

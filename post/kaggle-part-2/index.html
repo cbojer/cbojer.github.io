@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <title>
+    
+    
+     Learnings from Kaggle Forecasting Competitions: The Walmart Competition 
+    
+  </title>
+  <link rel="canonical" href="/post/kaggle-part-2/">
+
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  
+</head>
+
+<body>
+<section id=nav>
+  <h1><a href="/">Casper Bojer</a></h1>
+  <ul>
+    
+    <li><a href="https://cbojer.github.io">Home</a></li>
+    
+    <li><a href="https://github.com/cbojer">GitHub</a></li>
+    
+    <li><a href="https://www.linkedin.com/in/casper-solheim-bojer/">LinkedIn</a></li>
+    
+    <li><a href="https://twitter.com/casperbojer">Twitter</a></li>
+    
+    <li><a href="/index.xml">RSS</a></li>
+    
+  </ul>
+</section>
+
+
+<section id=content>
+  <h1> Learnings from Kaggle Forecasting Competitions: The Walmart Competition </h1>
+
+  <div id=sub-header>
+    Casper Bojer · 2019/10/11 · 6 minute read
+  </div>
+
+  <div class="entry-content">
+    
+
+
+<p><em>This post is the second part of a series of posts, which attempt to provide an overview of the forecasting competitions held on Kaggle. In contrast to the academically organized M-competitions, which focus on learning about the relative performance of forecast methods under different circumstances, the Kaggle competitions are organized with the sole goal of solving forecasting problems faced by companies. The effect of this focus is that while high ranking contestants often share their approaches, the lessons learned are fragmented and it requires significant work for interested academics or practitioners to put the pieces together. Motivated by this, the main purpose of the series is to distill the key findings of the competitions in terms of the approaches that have been succesfully applied to solving forecasting problems.</em></p>
+<p>In this second post of the series, we will examine the Walmart Recruiting Store Sales Forecasting in more detail, with the goal of identifying the methods and techniques that performed well. Before getting to the key findings, we review the dataset available as well as the forecasting task.</p>
+<div id="the-competition" class="section level1">
+<h1>The Competition</h1>
+<p>The competition tasked contestants to provide forecasts of Weekly Sales in $ by department and store for a horizon of 1 to 39 weeks. The contestants had access to 33 months of data for the 45 stores and 81 departments. The training dataset had a total of 3111 time series, while being required to provide forecasts for 2962 time series in the test set. The dataset is typical of a business forecasting task, where the different time series form a hierarchy of related time series. In total, 690 contestants competed in the competition. Performance was evaluated using the weighted mean absolute error (WMAE), which assigns a weight of five to the special holiday markdown weeks and one otherwise:</p>
+<p><span class="math display">\[ WMAE = \frac{1}{\sum{w_i}}\sum_{i = 1}^{n}w_i|y_i-\hat{y_i}| \]</span></p>
+</div>
+<div id="the-data" class="section level1">
+<h1>The Data</h1>
+<p>The contestants had access to historical sales data by department and store as well as metadata for the stores. The store metadata included the store type and store size. In addition, information on Holidays and markdowns (anonymized and included as a categorical varible for different markdown types) was provided, as these are well-known drivers of retail sales. Lastly, the contestants had access to other potentially relevant time series including the average weekly temperature by region, the fuel price by region, the consumer price index (CPI) and uneployment rate.</p>
+</div>
+<div id="methods-and-techniques-of-the-top-performers" class="section level1">
+<h1>Methods and Techniques of the Top Performers</h1>
+<p>In order to get an overview of what worked well in the competition, the Kaggle forums were searched for write-ups by the top 10 placers in the competition. Luckily, 9 out of the top 10 contestants had provided a description of their approach. Interestingly, most of the top 10 placers had used similar techniques that turned out to be key in order to place well in the competition. A common finding among the top placers were the strong seasonality and holiday effects in the time series and the importance of modelling this well. A simple seasonal naive method was a surprisingly strong benchmark in the competition, although all of the top 10 placers managed to beat this with more than a 20% decrease in MAE. The subsections below describe the key techniques and approaches used by the top placers.</p>
+<div id="top-3-to-8-simple-methods-with-seasonality-and-holiday-adjustments" class="section level2">
+<h2>Top 3 to 8: Simple Methods with Seasonality and Holiday Adjustments</h2>
+<p>The 3rd, 4th, 5th, 6th and 8th place all used very similar strategies that featured lining up weeks with holidays, and using simple models such as linear regression or growth rate adjusted seasonal naive models. Of interest is the fact that the additional variables and metadata, except for holiday information, did not help much in terms of forecast accuracy. While some of the top 10 contestants used them, the top 4 placers did not and managed to beat those who did, suggesting that not much value was to be gained from including these in the forecast</p>
+</div>
+<div id="top-2-ensembles-of-statistical-and-ml-models" class="section level2">
+<h2>Top 2: Ensembles of Statistical and ML Models</h2>
+<p>The top two placers both used combinations of multiple models, also known as ensembles, which has been shown many times in the forecasting literature to result in accuracy improvement. It is thus very likely that this was one of the keys to placing highly. The second place submission used machine learning models as part of an ensemble also containing statistical model, although they did not fare well on their own in the competition. This is likely due to the low information content of the additional variables and the strong seasonality aspect. The ensemble used by the second place submission used KNN, random forest and principal components regression (one could argue whether the last qualifies as ML), together with ARIMA, Unobserved Components Model and linear regression, using mainly week of the year and holiday effects as variables. While none of the methods in his ensemble did well enough to place top 10 on their own, they were sufficiently diverse to provide a good ensemble forecast.</p>
+</div>
+<div id="top-1-pooling-and-ensembles-of-statistical-models" class="section level2">
+<h2>Top 1: Pooling and Ensembles of Statistical Models</h2>
+<p>The first place submission used an average of simple models, such as those used by the 3rd to 8th place, combined with five more complex models. The main innovation of the first place contestant was to use various techniques to better estimate seasonality and holiday patterns by pooling or “borrowing” information across time series. The best of the five models using this principle was good enough to win the competition by itself, and featured the use of singular value decomposition to learn department specific patterns across stores. The method used was as follows:</p>
+<ul>
+<li>Perform holiday adjustments to the data</li>
+<li>Get the training data for a specific department into a matrix with weeks as rows and stores as columns.</li>
+<li>Use SVD to produce a low-rank approximation of the sales matrix. The winner reduced the rank from 45 (# stores) to between 10-15.</li>
+<li>Reconstruct the training matrix using the low-rank approximation.</li>
+<li>Forecast the reconstructed matrix using an STL decomposition followed by exponential smoothing of the seasonality adjusted series. This was conducted in R using the stlf function of the forecast package.</li>
+</ul>
+<p>The use of pooled information to better capture the seasonality was unique to the first place contestant and was likely what ended up giving him the edge that won him the competition. His 1st place on both the public and private leaderboard suggests that his win was not a fluke. The other methods used various versions of SVD: SVD+STL+ARIMA, SVD+Seasonal ARIMA, and other time series models, all with the goal of accurately modelling the seasonal patterns.</p>
+</div>
+</div>
+<div id="summary-and-looking-forward" class="section level1">
+<h1>Summary and looking forward</h1>
+<p>Based on the review of the methods and approaches of the top placers of the competition, the main findings of the competition are as follows:</p>
+<ul>
+<li>Pooling to borrow strength across similar time series in the hierarchy (using SVD) was effective</li>
+<li>Domain knowledge was key and required manual adjustments (Holiday adjustments)!</li>
+<li>Combinations of models performed well</li>
+<li>The time series were strongly seasonal</li>
+<li>Statistical models outperformed ML (Overall)</li>
+<li>External variables and metadata did not help significantly in forecasting</li>
+<li>Machine Learning models only did well as part of ensembles</li>
+</ul>
+<p>A hypothesis for the poor performance of the machine learning models are that the external variables did not contain much information, and that they were not used appropriately to allow for pooling across similar time series of different scales. This could be achieved e.g. through scaling of the series and using modern techniques such as target encoding to encode the categorical seasonality related variables (week of year, month etc).</p>
+<p>In the next post, I will dive into the Rossmann competition, another retail forecasting competition, and investigate whether similar techniques prevailed.</p>
+</div>
+
+  </div>
+
+  <div id=links>
+    
+      <a class="basic-alignment left" href="/post/kaggle-part-1/">&laquo; Learnings from Kaggle Forecasting Competitions: Introduction</a>
+    
+    
+  </div>
+</section>
+
+<section id="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+      
+      
+      if (window.location.hostname == "localhost")
+                return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = '';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+  
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+</body>
+</html>
+
